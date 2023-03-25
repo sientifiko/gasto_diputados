@@ -14,8 +14,9 @@ personal <- read.csv2("gastos_personal.csv",
 
 colnames(personal)[2] <- "nom.personal"
 
-dips$nombre %>% 
+dips$nom.dip %>% 
   str_remove("Sr. |Sra. ") -> dips$nombre2
+
 
 dips$posicion <- case_when(
   
@@ -37,8 +38,6 @@ conso$sueldo <- conso$sueldo %>% str_remove_all("\\.") %>% as.numeric()
 
 conso$nom.personal2 <- conso$nom.personal %>% 
   str_replace_all(" +", " ")
-
-
 
 conso$nom.personal %>% 
   unique() %>% 
@@ -69,17 +68,27 @@ asesores %>%
   group_by(posicion, pers_sur) %>% 
   count() -> surnames
 
+surnames$pers_sur %>% 
+  tolower() %>% 
+  iconv(from = "UTF-8",to="ASCII//TRANSLIT") -> surnames$pers_sur2
 
 surnames %>% 
-  filter(n > 2) %>% 
+  # filter(n > 1) %>% 
   ggplot() +
-  aes(label = pers_sur, size = n) +
+  aes(label = pers_sur2, size = n*3) +
   geom_text_wordcloud() +
-  facet_wrap(~posicion)
+  facet_wrap(~posicion) +
+  labs(title = "Apellidos de personal",
+       subtitle = "Principales apellidos de personal por posición política")
 
 
 
+surnames %>% 
+  group_by(pers_sur2) %>% 
+  summarise(n = sum(n)) %>% 
+  mutate(p = n/sum(n)) -> sur_freq
 
+asesores
 
 
 
