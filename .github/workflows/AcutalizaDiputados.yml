@@ -23,7 +23,7 @@ jobs:
     - name: Ejecutar codigo.R
       run: |
         ls
-        Rscript extraccion_diputados.R.R
+        Rscript extraccion_diputados.R
 
     - name: Commit cambios
       uses: EndBug/add-and-commit@v7
