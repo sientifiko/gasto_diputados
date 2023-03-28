@@ -21,10 +21,6 @@ jobs:
         R -e "install.packages(c('tidyverse', 'rvest'))"
         Rscript extraccion_diputados.R
         
-    - name: Commit results
-      run: |
-        git config --global user.email "socialscienceanime@gmail.com"
-        git config --global user.name "sientifiko"
-        git add .
-        git commit -m "Add results"
-        git push
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "Se actualizó la base de diputados"
