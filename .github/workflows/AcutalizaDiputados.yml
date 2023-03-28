@@ -1,0 +1,35 @@
+name: extraediputados
+
+on:
+  push:
+    branches: main
+  schedule:
+    - cron: "0 0 1 */4 *"
+
+jobs:
+  autoscrape:
+    runs-on: macos-latest
+
+  steps:
+    - uses: actions/checkout@master
+    - uses: r-lib/actions/setup-r@master
+    - name: Install packages
+      run: |
+        R -e 'install.packages("tidyverse")'
+        R -e 'install.packages("rvest")'
+        
+    - name: Scrape
+      run: Rscript extraccion_diputados.R
+      
+    - name: Commit files
+      run: |
+        git config --local user.name github-actions
+        git config --local user.email "actions@github.com"
+        git add data/*
+        git commit -am "GH ACTION Autorun $(date)"
+        git push origin master
+      env:
+        REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+        username: github-actions
+  
+  
