@@ -33,7 +33,7 @@ base_diputados <- data.frame(id = dip.cods,
                              distrito = distritos)
 
 
-write.csv2(base_diputados, "base_diputados.csv", row.names = F,
+write.csv2(base_diputados, "datos/base_diputados.csv", row.names = F,
            fileEncoding = "latin1")
 
 
