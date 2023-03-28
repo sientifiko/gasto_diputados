@@ -24,7 +24,7 @@ jobs:
     - name: Scrape
       run: | 
         ls 
-        R extraccion_diputados.R
+        Rscript extraccion_diputados.R
       
     - name: Commit files
       run: |
