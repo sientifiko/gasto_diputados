@@ -10,9 +10,10 @@ jobs:
   autoscrape:
     runs-on: macos-latest
 
-  steps:
+    steps:
     - uses: actions/checkout@master
     - uses: r-lib/actions/setup-r@master
+  
     - name: Install packages
       run: |
         R -e 'install.packages("tidyverse")'
