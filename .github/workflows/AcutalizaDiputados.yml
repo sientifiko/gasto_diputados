@@ -21,7 +21,8 @@ jobs:
         R -e 'install.packages("rvest")'
         
     - name: Scrape
-      run: Rscript extraccion_diputados.R
+      run: | 
+        Rscript extraccion_diputados.R
       
     - name: Commit files
       run: |
