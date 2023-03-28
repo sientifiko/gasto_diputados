@@ -6,7 +6,7 @@ on:
 
 jobs:
   scrape:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
 
     - name: Instalar paquetes de R
       run: |
-        Rscript -e 'install.packages(c("rvest", "tidyverse"))'
+        R -e 'install.packages(c("rvest", "tidyverse"))'
 
     - name: Ejecutar codigo.R
       run: |
