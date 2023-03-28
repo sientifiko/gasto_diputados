@@ -1,33 +1,26 @@
 name: Actualizar listado de diputados
-
 on:
   push:
-    branches: [main]
-
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 jobs:
-  scrape:
+  build:
     runs-on: macos-latest
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v2
-
-    - name: Configurar R
+    - name: Install R
       uses: r-lib/actions/setup-r@v1
       with:
         r-version: '4.1.2'
-
-    - name: Instalar paquetes de R
+    - name: Run R script
       run: |
-        R -e 'install.packages(c("rvest", "tidyverse"))'
-
-    - name: Ejecutar codigo.R
-      run: |
-        ls
         Rscript extraccion_diputados.R
-
-    - name: Commit cambios
-      uses: EndBug/add-and-commit@v7
-      with:
-        author_name: sientifiko
-        author_email: socialscienceanime@gmail.com
-        message: "Actualización de diputados"
+    - name: Commit results
+      run: |
+        git config --global user.email "socialscienceanime@gmail.com"
+        git config --global user.name "sientifiko"
+        git add .
+        git commit -m "Add results"
+        git push
