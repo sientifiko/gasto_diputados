@@ -23,6 +23,7 @@ jobs:
         
     - name: Scrape
       run: | 
+        ls 
         Rscript gasto_diputados/extraccion_diputados.R
       
     - name: Commit files
